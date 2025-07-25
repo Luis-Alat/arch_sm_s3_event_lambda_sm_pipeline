@@ -25,6 +25,7 @@ jobs:
         run: |
           echo "Uploading scripts to S3..."
           aws s3 cp code/preprocess.py s3://pipeline-test-ml-sklearn-randomforest-artifacts/code/scripts/preprocess.py
-          aws s3 cp code/training.py s3://pipeline-test-ml-sklearn-randomforest-artifacts/code/scripts/training.py
-          aws s3 cp code/evaluate.py s3://pipeline-test-ml-sklearn-randomforest-artifacts/code/scripts/evaluate.py
+          aws s3 cp code/train.py s3://pipeline-test-ml-sklearn-randomforest-artifacts/code/scripts/train.py
+          aws s3 cp code/evaluation.py s3://pipeline-test-ml-sklearn-randomforest-artifacts/code/scripts/evaluation.py
+          aws s3 cp code/inference.py s3://pipeline-test-ml-sklearn-randomforest-artifacts/code/scripts/inference.py
           echo "All Done"
