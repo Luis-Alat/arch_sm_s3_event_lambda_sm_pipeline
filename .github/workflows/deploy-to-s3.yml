@@ -1,0 +1,30 @@
+name: Upload scripts to S3
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy pipeline scripts to S3
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION || 'us-east-1' }}
+
+      - name: Upload pipeline scripts (preprocessing, training, etc.) to S3
+        run: |
+          echo "Uploading scripts to S3..."
+          aws s3 cp code/preprocess.py s3://pipeline-test-ml-sklearn-randomforest-artifacts/code/scripts/preprocess.py
+          aws s3 cp code/training.py s3://pipeline-test-ml-sklearn-randomforest-artifacts/code/scripts/training.py
+          aws s3 cp code/evaluate.py s3://pipeline-test-ml-sklearn-randomforest-artifacts/code/scripts/evaluate.py
+          echo "All Done"
