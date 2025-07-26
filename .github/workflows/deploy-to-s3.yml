@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "code/**"
+      - ".github/workflows/deploy-to-s3.yml"
 
 jobs:
   deploy:
