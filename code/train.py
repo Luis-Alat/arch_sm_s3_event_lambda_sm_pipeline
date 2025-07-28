@@ -38,7 +38,7 @@ def main():
     # Loading training data
     train_data = pd.read_csv(os.path.join(args.train, 'train.csv'), header=None)
     X_train = train_data.iloc[:, :-1]
-    y_train = train_data.iloc[:, -1]
+    y_train = train_data.iloc[:, -1].astype("int8")
 
     # Defining right format for parameter class_weight
     class_weight = args.class_weight
