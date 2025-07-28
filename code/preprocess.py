@@ -2,6 +2,7 @@ import argparse
 import logging
 from glob import glob
 import os
+import joblib
 
 import pandas as pd
 import numpy as np
@@ -127,5 +128,9 @@ if __name__ == "__main__":
     pd.DataFrame(train).to_csv(f"{base_dir}/train/train.csv", header=False, index=False)
     pd.DataFrame(validation).to_csv(f"{base_dir}/validation/validation.csv", header=False, index=False)
     pd.DataFrame(test).to_csv(f"{base_dir}/test/test.csv", header=False, index=False)
+
+    logger.info("Saving transformer object.")
+    with open(f"{base_dir}/transformer/transformer.joblib", "w") as f:
+        joblib.dump(transformer, f)
 
     logger.info("All done!")
