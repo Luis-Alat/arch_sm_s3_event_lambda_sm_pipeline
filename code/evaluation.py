@@ -49,7 +49,7 @@ if __name__ == "__main__":
     
     report_dict = {
         "classification_metrics": {
-                "train":{
+                "test":{
                     "f1": f1,
                     "cr": cla_rep,
                     "cm": con_mat
