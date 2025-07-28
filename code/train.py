@@ -1,6 +1,7 @@
 import argparse
 import os
 import joblib
+import shutil
 import logging
 
 import pandas as pd
@@ -25,6 +26,7 @@ def main():
     parser.add_argument('--model-dir', type=str, default=os.environ.get('SM_MODEL_DIR'))
     parser.add_argument('--train', type=str, default=os.environ.get('SM_CHANNEL_TRAIN'))
     parser.add_argument('--validation', type=str, default=os.environ.get('SM_CHANNEL_VALIDATION', None))
+    parser.add_argument('--transformer', type=str, default=os.environ.get('SM_CHANNEL_TRANSFORMER'))
 
     parser.add_argument('--n-estimators', type=int, default=100)
     parser.add_argument('--max-depth', type=int, default=None)
@@ -75,9 +77,15 @@ def main():
         logger.debug(f"F1-score={f1}")
         print(f"F1-score={f1}")
 
-    # Saving model
-    logger.info("Saving trained model")
-    joblib.dump(model, os.path.join(args.model_dir, "model.joblib"))
+    # Saving model and transformer to package together
+    logger.info("Saving trained model.")
+    with open(os.path.join(args.model_dir, "model.joblib"), "w") as f:
+        joblib.dump(model, f)
+    
+    logger.info("Packaging transformer together with the model")
+    transformer_input_path = os.path.join(args.transformer, "transformer.joblib")
+    transformer_output_path = os.path.join(args.model_dir, "transformer.joblib")
+    shutil.copy(transformer_input_path, transformer_output_path)
 
     logger.info("All done!")
 
