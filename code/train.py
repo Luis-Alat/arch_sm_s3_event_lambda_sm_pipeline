@@ -1,7 +1,6 @@
 import argparse
 import os
 import joblib
-import json
 import logging
 
 import pandas as pd
@@ -44,8 +43,10 @@ def main():
     # Defining right format for parameter class_weight
     class_weight = args.class_weight
     if (class_weight != "balanced") or (class_weight is not None):
-        class_weight = json.loads(class_weight)
-        class_weight = {int(key):float(value) for key, value in class_weight.items()}
+        class_weight = {
+            int(pair_value.split(":")[0]):float(pair_value.split(":")[1])
+            for pair_value in class_weight.split(",")
+        }
 
     logger.info("\nTraining model\n")
 
