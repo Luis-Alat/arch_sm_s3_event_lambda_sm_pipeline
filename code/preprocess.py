@@ -20,7 +20,7 @@ logger.addHandler(logging.StreamHandler())
 
 if __name__ == "__main__":
 
-    logger.debug("Starting preprocessing.")
+    logger.info("Starting preprocessing...")
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -38,7 +38,8 @@ if __name__ == "__main__":
     input_data = args.input_data
     base_dir = args.base_dir
 
-    logger.info(f"Loading data from: {input_data}")
+    logger.debug(f"Loading data from: {input_data}")
+    logger.info(f"Loading data...")
 
     csv_files = glob(os.path.join(input_data, "*.csv"))
 
@@ -51,7 +52,7 @@ if __name__ == "__main__":
 
     df.drop("LoanID", inplace=True, axis=1)
 
-    logger.debug("Defining transformers.")
+    logger.info("Defining transformers...")
 
     # Defining the variables and expected values 
     # to transform (ordinal, nominal and numeric variables)
@@ -109,7 +110,8 @@ if __name__ == "__main__":
     y = transformed_data.pop("remainder__Default").astype("int8")
     transformed_data = pd.concat([y, transformed_data], axis=1)
 
-    logger.info("Splitting %d rows of data into train, validation, test datasets.", len(transformed_data))
+    logger.debug("Splitting %d rows of data into train, validation, test datasets.", len(transformed_data))
+    logger.info("Splitting rows of data into train, validation, test datasets.")
 
     transformed_data = transformed_data.sample(frac=1)
 
@@ -118,9 +120,12 @@ if __name__ == "__main__":
         [int(0.7 * len(transformed_data)), int(0.85 * len(transformed_data))]
     )
 
-    logger.info("Writing out datasets to %s.", base_dir)
+    logger.debug("Writing out datasets to %s.", base_dir)
+    logger.info("Writing out datasets...")
 
     #transformed_data.to_parquet("../data/processed/processed_data.parquet", index=False)
     pd.DataFrame(train).to_csv(f"{base_dir}/train/train.csv", header=False, index=False)
     pd.DataFrame(validation).to_csv(f"{base_dir}/validation/validation.csv", header=False, index=False)
     pd.DataFrame(test).to_csv(f"{base_dir}/test/test.csv", header=False, index=False)
+
+    logger.info("All done!")
