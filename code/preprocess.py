@@ -101,6 +101,9 @@ if __name__ == "__main__":
         verbose_feature_names_out=True
     )
 
+    logger.info("Removing target column")
+    y = df.pop("Default").astype("int8")
+
     logger.info("Applying transforms.")
     transformed_data = transformer.fit_transform(df)
 
@@ -108,7 +111,6 @@ if __name__ == "__main__":
         transformed_data,
         columns=transformer.get_feature_names_out()
     )
-    y = transformed_data.pop("remainder__Default").astype("int8")
     transformed_data = pd.concat([y, transformed_data], axis=1)
 
     logger.debug("Splitting %d rows of data into train, validation, test datasets.", len(transformed_data))
