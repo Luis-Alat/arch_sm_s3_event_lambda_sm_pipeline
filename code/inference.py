@@ -31,6 +31,8 @@ def predict_fn(input_data, model_bundle):
 def output_fn(prediction, accept):
     if accept == "text/csv":
         return ",".join(str(x) for x in prediction)
+    elif accept == "application/json":
+        return {"predictions": prediction.tolist()}
     else:
         raise ValueError(f"Unsupported accept type: {accept}")
 
