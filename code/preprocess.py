@@ -132,7 +132,7 @@ if __name__ == "__main__":
     pd.DataFrame(test).to_csv(f"{base_dir}/test/test.csv", header=False, index=False)
 
     logger.info("Saving transformer object.")
-    with open(f"{base_dir}/transformer/transformer.joblib", "w") as f:
+    with open(f"{base_dir}/transformer/transformer.joblib", "wb") as f:
         joblib.dump(transformer, f)
 
     logger.info("All done!")

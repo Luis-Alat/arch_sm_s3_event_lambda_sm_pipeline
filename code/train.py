@@ -79,7 +79,7 @@ def main():
 
     # Saving model and transformer to package together
     logger.info("Saving trained model.")
-    with open(os.path.join(args.model_dir, "model.joblib"), "w") as f:
+    with open(os.path.join(args.model_dir, "model.joblib"), "wb") as f:
         joblib.dump(model, f)
     
     logger.info("Packaging transformer together with the model")
