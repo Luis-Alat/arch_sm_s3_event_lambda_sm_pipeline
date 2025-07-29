@@ -6,7 +6,11 @@ import tarfile
 
 import pandas as pd
 
-from sklearn.metrics import accuracy_score, f1_score, recall_score, precision_score
+from sklearn.metrics import (
+    f1_score,
+    classification_report,
+    confusion_matrix
+)
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -15,43 +19,41 @@ logger.addHandler(logging.StreamHandler())
 
 if __name__ == "__main__":
 
-    logger.debug("Starting evaluation.")
+    logger.info("Starting evaluation.")
 
     model_path = "/opt/ml/processing/model/model.tar.gz"
     with tarfile.open(model_path) as tar:
         tar.extractall(path=".")
 
-    logger.debug("Loading RandomForest model.")
+    logger.info("Loading RandomForest model.")
     
     model = joblib.load("model.joblib")
 
-    logger.debug("Reading test data.")
+    logger.info("Reading test data.")
 
     test_path = "/opt/ml/processing/data/test/test.csv"
     df = pd.read_csv(test_path, header=None)
-
-    logger.debug("Reading test data.")
     
-    y_test = df.iloc[:, 0].to_numpy()
+    y_test = df.iloc[:, 0].astype("int8").to_numpy()
     X_test = df.iloc[:, 1:].values
 
     logger.info("Performing predictions against test data.")
 
     predictions = model.predict(X_test)
 
-    logger.debug("Calculating mean squared error.")
+    logger.debug("Calculating classification metrics.")
 
-    f1  = f1_score(y_test, predictions, average="weighted")
-    acc = accuracy_score(y_test, predictions)
-    re  = recall_score(y_test, predictions, average="weighted")
-    pre = precision_score(y_test, predictions, average="weighted")
+    f1  = f1_score(y_test, predictions, average="macro")
+    cla_rep = classification_report(y_test, predictions)
+    con_mat = confusion_matrix(y_test, predictions).tolist()
     
     report_dict = {
         "classification_metrics": {
-            "f1":  {"value": f1},
-            "acc": {"value": acc},
-            "re":  {"value": re},
-            "pre": {"value": pre}
+                "test":{
+                    "f1": f1,
+                    "cr": cla_rep,
+                    "cm": con_mat
+                }
         }
     }
 
@@ -61,5 +63,5 @@ if __name__ == "__main__":
     logger.info("Writing out evaluation report")
 
     evaluation_path = f"{output_dir}/evaluation.json"
-    with open(evaluation_path, "w") as f:
-        f.write(json.dumps(report_dict))
+    with open(evaluation_path, "w") as oJ:
+        json.dump(report_dict, oJ, indent=4)

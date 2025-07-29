@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+      - main
     paths:
       - "code/**"
       - ".github/workflows/deploy-to-s3.yml"
@@ -25,10 +26,12 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION || 'us-east-1' }}
 
       - name: Upload pipeline scripts (preprocessing, training, etc.) to S3
+        env:
+          BRANCH_NAME: ${{ github.ref_name }}
         run: |
           echo "Uploading scripts to S3..."
-          aws s3 cp code/preprocess.py s3://pipeline-test-ml-sklearn-randomforest-artifacts/develop/code/scripts/preprocess.py
-          aws s3 cp code/train.py s3://pipeline-test-ml-sklearn-randomforest-artifacts/develop/code/scripts/train.py
-          aws s3 cp code/evaluation.py s3://pipeline-test-ml-sklearn-randomforest-artifacts/develop/code/scripts/evaluation.py
-          aws s3 cp code/inference.py s3://pipeline-test-ml-sklearn-randomforest-artifacts/develop/code/scripts/inference.py
+          aws s3 cp code/preprocess.py s3://pipeline-test-ml-sklearn-randomforest-artifacts/$BRANCH_NAME/code/scripts/preprocess.py
+          aws s3 cp code/train.py s3://pipeline-test-ml-sklearn-randomforest-artifacts/$BRANCH_NAME/code/scripts/train.py
+          aws s3 cp code/evaluation.py s3://pipeline-test-ml-sklearn-randomforest-artifacts/$BRANCH_NAME/code/scripts/evaluation.py
+          aws s3 cp code/inference.py s3://pipeline-test-ml-sklearn-randomforest-artifacts/$BRANCH_NAME/code/scripts/inference.py
           echo "All Done"
