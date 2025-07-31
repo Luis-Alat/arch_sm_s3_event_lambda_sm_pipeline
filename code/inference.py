@@ -2,6 +2,7 @@ import os
 import io
 import joblib
 import pandas as pd
+import json
 
 
 def model_fn(model_dir):
@@ -11,8 +12,21 @@ def model_fn(model_dir):
 
 
 def input_fn(input_data, content_type):
+
     if content_type == "text/csv":
         return pd.read_csv(io.StringIO(input_data))
+    
+    elif content_type == "application/json":
+        parsed = json.loads(input_data)
+
+        # One example
+        if isinstance(parsed, dict):
+            return pd.DataFrame([parsed])
+
+        # Multiples examples
+        elif isinstance(parsed, list):
+            return pd.DataFrame(parsed)
+
     else:
         raise ValueError(f"Unsupported content type: {content_type}")
 
