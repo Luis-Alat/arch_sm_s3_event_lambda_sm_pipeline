@@ -1,0 +1,30 @@
+import json
+import boto3
+
+map_prediction = {1: "Yes", 0: "No"}
+
+def lambda_handler(event, context):
+
+    endpoint = "serverless-endpoint-d97c6a4e"
+
+    sm_client = boto3.client('sagemaker-runtime', region_name="us-east-1")
+
+    payload_json = event['body']
+
+    response = sm_client.invoke_endpoint(
+        EndpointName=endpoint,
+        Body=payload_json,
+        ContentType='application/json'
+    )
+
+    result = response["Body"].read().decode("utf-8")
+    
+    parsed_result = json.loads(result)["predictions"]
+    result_string = map(lambda x: map_prediction.get(int(x)), parsed_result)
+
+    return {
+        "statusCode": 200,
+        "body": json.dumps({
+            "predictions": list(result_string)
+        })
+    }
