@@ -1,6 +1,6 @@
 .ssh
 .ssh.pub
-
-pendientes
+.env
 
 **/data/
+experiments/models/*
