@@ -16,13 +16,13 @@ class CdkLambdaStack(Stack):
         invocation_lambda_role = iam.Role.from_role_arn(
             self, 
             "LambdaRoleCallEndpoint",
-            role_arn="arn:aws:iam::007863746889:role/CallEndpoint"
+            role_arn="arn:aws:iam::007863746889:role/TriggerS3UpdateTrainData"
         )
 
         create_endpoint_lambda_role = iam.Role.from_role_arn(
             self,
             "LambdaRoleSeverlessDeploySagemakerPipeline",
-            role_arn="arn:aws:iam::007863746889:role/ModelArtefacts"
+            role_arn="arn:aws:iam::007863746889:role/TriggerS3UpdateTrainData"
         )
 
 
