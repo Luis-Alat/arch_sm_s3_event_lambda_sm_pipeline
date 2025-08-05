@@ -5,7 +5,7 @@ map_prediction = {1: "Yes", 0: "No"}
 
 def lambda_handler(event, context):
 
-    endpoint = "serverless-endpoint-acc1ad5b"
+    endpoint = "serverless-endpoint-d97c6a4e"
 
     sm_client = boto3.client('sagemaker-runtime', region_name="us-east-1")
 

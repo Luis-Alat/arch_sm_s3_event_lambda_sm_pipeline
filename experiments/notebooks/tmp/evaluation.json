@@ -1,0 +1,30 @@
+{
+    "train": {
+        "f1_score": 0.889525125621786,
+        "classification_report": "              precision    recall  f1-score   support\n\n           0       1.00      0.94      0.97    187608\n           1       0.68      1.00      0.81     24668\n\n    accuracy                           0.95    212276\n   macro avg       0.84      0.97      0.89    212276\nweighted avg       0.96      0.95      0.95    212276\n",
+        "confusion_matrix": [
+            [
+                176106,
+                11502
+            ],
+            [
+                12,
+                24656
+            ]
+        ]
+    },
+    "test": {
+        "f1_score": 0.6368632365221475,
+        "classification_report": "              precision    recall  f1-score   support\n\n           0       0.92      0.90      0.91     46903\n           1       0.34      0.39      0.36      6167\n\n    accuracy                           0.84     53070\n   macro avg       0.63      0.65      0.64     53070\nweighted avg       0.85      0.84      0.85     53070\n",
+        "confusion_matrix": [
+            [
+                42231,
+                4672
+            ],
+            [
+                3752,
+                2415
+            ]
+        ]
+    }
+}
