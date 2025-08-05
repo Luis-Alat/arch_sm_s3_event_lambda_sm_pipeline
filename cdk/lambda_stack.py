@@ -47,15 +47,3 @@ class CdkLambdaCiStack(Stack):
         )
 
 
-        # API Gateway for endpoint invocation
-        api = apigw.RestApi(
-            self,
-            "RestApiGetPrediction",
-            rest_api_name="GetPrediction",
-        )
-        api.root.add_resource("predict").add_method(
-            "POST",
-            apigw.LambdaIntegration(lambda_call_end)
-        )
-
-
