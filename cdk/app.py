@@ -5,7 +5,7 @@ from api_stack import CdkApiStack
 
 app = cdk.App()
 
-lambda_stack = CdkLambdaCiStack(app, "LambdaStack")
-api_stack = CdkApi(app, "ApiStack", lambda_function=lambda_stack.lambda_create_end)
+lambda_stack = CdkLambdaStack(app, "LambdaStack")
+api_stack = CdkApiStack(app, "ApiStack", lambda_function=lambda_stack.lambda_create_end)
 
 app.synth()
