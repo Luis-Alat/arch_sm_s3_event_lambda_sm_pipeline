@@ -26,7 +26,7 @@ class CdkLambdaStack(Stack):
         )
 
 
-        lambda_call_end = _lambda.Function(
+        self.lambda_call_end = _lambda.Function(
             self,
             "LambdaFunctCallEndpoint",
             runtime=_lambda.Runtime.PYTHON_3_13,
@@ -36,7 +36,7 @@ class CdkLambdaStack(Stack):
             function_name="CallEndpoint"
         )
 
-        lambda_create_end = _lambda.Function(
+        self.lambda_create_end = _lambda.Function(
             self,
             "LambdaFunctCreateEndpoint",
             runtime=_lambda.Runtime.PYTHON_3_13,
