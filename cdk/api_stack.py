@@ -1,7 +1,7 @@
 from aws_cdk import Stack, aws_apigateway
 from constructs import Construct
 
-class CdkApi(Stack):
+class CdkApiStack(Stack):
 
     def __init__(self, scope: Construct, construct_id: str, *, lambda_function, **kwargs):
         
