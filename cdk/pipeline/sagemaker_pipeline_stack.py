@@ -8,7 +8,7 @@ class CdkSagemakerPipelinesStack(Stack):
 
         super().__init__(scope, id, **kwargs)
 
-        with open("sagemaker/loan_default_pipeline.json", "r") as f:
+        with open("pipeline/sagemaker/loan_default_pipeline.json", "r") as f:
             pipeline_definition = f.read()
 
         pipeline_name = "PipelineSkLernLoanDefault"
