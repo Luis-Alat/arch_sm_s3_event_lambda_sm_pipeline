@@ -18,7 +18,7 @@ class CdkSagemakerPipelinesStack(Stack):
         pipeline_definition_json_string = json.dumps(pipeline_definition_dict)
 
         pipeline_name = "PipelineSkLernLoanDefault"
-        pipeline_role_arn = "arn:aws:iam::***:role/sagemakerS3"
+        pipeline_role_arn = "arn:aws:iam::007863746889:role/sagemakerS3"
 
         # 3. Create a CfnPipeline.PipelineDefinitionProperty object.
         # This object's 'pipeline_definition_body' property explicitly expects a string.
