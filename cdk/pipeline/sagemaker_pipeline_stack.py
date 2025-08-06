@@ -19,13 +19,10 @@ class CdkSagemakerPipelinesStack(Stack):
         pipeline_role_arn = "arn:aws:iam::007863746889:role/sagemakerS3"
 
 
-        pipeline_definition_property = aws_sagemaker.CfnPipeline.PipelineDefinitionProperty(
-            pipeline_definition_body=pipeline_definition_body
-        )
         self.sm_pipeline = aws_sagemaker.CfnPipeline(
             self,
             pipeline_name,
             pipeline_name=pipeline_name,
             role_arn=pipeline_role_arn,
-            pipeline_definition=pipeline_definition_property
+            pipeline_definition=pipeline_definition_body
         )
