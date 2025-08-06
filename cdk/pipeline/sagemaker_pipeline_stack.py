@@ -32,5 +32,5 @@ class CdkSagemakerPipelinesStack(Stack):
             pipeline_name,
             pipeline_name=pipeline_name,
             role_arn=pipeline_role_arn,
-            pipeline_definition=pipeline_definition_property,
+            pipeline_definition=pipeline_definition_json_string,
         )
