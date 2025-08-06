@@ -13,19 +13,20 @@ class CdkSagemakerPipelinesStack(Stack):
         with open("pipeline/sagemaker/loan_default_pipeline.json", "r") as f:
             pipeline_definition_dict = json.load(f)
 
+        # 2. Convert the Python dictionary to a JSON string.
+        # This is the crucial step to satisfy the 'str' type requirement.
+        pipeline_definition_json_string = json.dumps(pipeline_definition_dict)
+
         pipeline_name = "PipelineSkLernLoanDefault"
         pipeline_role_arn = "arn:aws:iam::***:role/sagemakerS3"
 
-        # 2. Create a PipelineDefinitionProperty object.
-        # This object expects a dictionary as the pipeline_definition_body.
-        # It's a bit counter-intuitive, but this is the structure that the CDK needs.
+        # 3. Create a CfnPipeline.PipelineDefinitionProperty object.
+        # This object's 'pipeline_definition_body' property explicitly expects a string.
         pipeline_definition_property = aws_sagemaker.CfnPipeline.PipelineDefinitionProperty(
-            # Pass the Python dictionary directly
-            pipeline_definition_body=pipeline_definition_dict
+            pipeline_definition_body=pipeline_definition_json_string
         )
 
-        # 3. Create the CfnPipeline resource.
-        # Pass the PipelineDefinitionProperty object to the pipeline_definition property.
+        # 4. Create the CfnPipeline resource and pass the property object.
         self.sm_pipeline = aws_sagemaker.CfnPipeline(
             self,
             pipeline_name,
