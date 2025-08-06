@@ -1,8 +1,8 @@
 import aws_cdk as cdk
 
-from cdk.lambdas.lambda_stack import CdkLambdaStack
-from cdk.api.api_stack import CdkApiStack
-from cdk.pipeline.sagemaker_pipeline_stack import CdkSagemakerPipelinesStack
+from lambdas.lambda_stack import CdkLambdaStack
+from api.api_stack import CdkApiStack
+from pipeline.sagemaker_pipeline_stack import CdkSagemakerPipelinesStack
 
 app = cdk.App()
 
