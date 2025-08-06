@@ -3,6 +3,8 @@ from aws_cdk import aws_events_targets as targets
 from aws_cdk import aws_iam as iam
 from aws_cdk import aws_s3 as s3
 from aws_cdk import Stack
+
+import json
 from constructs import Construct
 
 class CdkEventStack(Stack):
@@ -37,12 +39,14 @@ class CdkEventStack(Stack):
                     }
                 }
             },
-            targets=[{
-                "id": "SageMakerPipelineTarget",
-                "arn": "arn:aws:sagemaker:us-east-1:007863746889:pipeline/PipelineSkLernLoanDefault",
-                "roleArn": role.role_arn,
-                "input": {
-                    "PipelineName": "PipelineSkLernLoanDefault"
-                }
-            }]
+            targets=[
+                events.CfnRule.TargetProperty(
+                    id="SageMakerPipelineTarget",
+                    arn="arn:aws:sagemaker:us-east-1:007863746889:pipeline/PipelineSkLernLoanDefault",
+                    role_arn=role.role_arn,
+                    input=json.dumps({
+                        "PipelineName": "PipelineSkLernLoanDefault"
+                    })
+                )
+            ]
         )
