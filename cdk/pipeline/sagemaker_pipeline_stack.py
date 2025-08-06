@@ -17,11 +17,6 @@ class CdkSagemakerPipelinesStack(Stack):
             pipeline_definition = f.read()
 
 
-        #pipeline_definition_property = aws_sagemaker.CfnPipeline.PipelineDefinitionProperty(
-        #    pipeline_definition_body=pipeline_definition
-        #)
-
-
         self.sm_pipeline = aws_sagemaker.CfnPipeline(
             self,
             pipeline_name,
