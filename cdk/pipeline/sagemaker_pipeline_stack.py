@@ -1,5 +1,6 @@
 from aws_cdk import Stack, aws_sagemaker
 from constructs import Construct
+import json
 
 
 class CdkSagemakerPipelinesStack(Stack):
@@ -9,7 +10,7 @@ class CdkSagemakerPipelinesStack(Stack):
         super().__init__(scope, id, **kwargs)
 
         with open("pipeline/sagemaker/loan_default_pipeline.json", "r") as f:
-            pipeline_definition = f.read()
+            pipeline_definition = json.load(f)
 
         pipeline_name = "PipelineSkLernLoanDefault"
         pipeline_role_arn = "arn:aws:iam::007863746889:role/sagemakerS3"
