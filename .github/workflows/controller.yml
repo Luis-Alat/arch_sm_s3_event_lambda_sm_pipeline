@@ -10,6 +10,9 @@ jobs:
   call-deploy:
     name: Deploy Infrastructure
     uses: ./.github/workflows/deploy.yml
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   call-tests:
     name: Run Integration Tests
