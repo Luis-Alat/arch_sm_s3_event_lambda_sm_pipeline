@@ -1,0 +1,17 @@
+name: CI/CD Controller
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+
+jobs:
+  call-deploy:
+    name: Deploy Infrastructure
+    uses: ./.github/workflows/deploy.yml
+
+  call-tests:
+    name: Run Integration Tests
+    needs: call-deploy
+    uses: ./.github/workflows/tests.yml
