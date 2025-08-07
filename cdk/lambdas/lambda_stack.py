@@ -2,7 +2,8 @@ from aws_cdk import (
     Stack,
     aws_lambda as _lambda,
     aws_apigateway as apigw,
-    aws_iam as iam
+    aws_iam as iam,
+    CfnOutput
 )
 from constructs import Construct
 
@@ -46,4 +47,16 @@ class CdkLambdaStack(Stack):
             function_name="SeverlessDeploySagemakerPipeline"
         )
 
+        CfnOutput(
+            self,
+            self.lambda_call_end.function_name,
+            value=self.lambda_call_end.function_name,
+
+        )
+
+        CfnOutput(
+            self,
+            self.lambda_create_end.function_name,
+            value=self.lambda_create_end.function_name
+        )
 

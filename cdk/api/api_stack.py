@@ -1,4 +1,4 @@
-from aws_cdk import Stack, aws_apigateway
+from aws_cdk import Stack, aws_apigateway, CfnOutput
 from constructs import Construct
 
 class CdkApiStack(Stack):
@@ -15,4 +15,10 @@ class CdkApiStack(Stack):
         api.root.add_resource("predict").add_method(
             "POST",
             aws_apigateway.LambdaIntegration(lambda_function)
+        )
+
+        CfnOutput(
+            self,
+            "ApiGetPrediction",
+            value=api.url,
         )
