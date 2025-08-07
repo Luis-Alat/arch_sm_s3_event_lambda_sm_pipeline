@@ -4,10 +4,13 @@
 
 .
 ├── cdk
-│   └── lambdas
-│       ├── call_endpoint
-│       ├── roles
-│       └── severless_deploy_endpoint
+│   ├── api
+│   ├── event
+│   ├── lambdas
+│   │   ├── call_endpoint
+│   │   └── severless_deploy_endpoint
+│   └── pipeline
+│       └── sagemaker
 ├── experiments
 │   ├── data
 │   │   ├── processed
