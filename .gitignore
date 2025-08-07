@@ -2,6 +2,6 @@
 .ssh.pub
 .env
 
-cdk/cdk-outputs.json
+
 **/data/
 experiments/models/*
