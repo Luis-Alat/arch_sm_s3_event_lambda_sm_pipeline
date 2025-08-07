@@ -39,4 +39,4 @@ jobs:
         working-directory: cdk
         run: |
           cdk synth -a "python app.py"
-          cdk deploy --all --require-approval never -a "python app.py"
+          cdk deploy --all --require-approval never --outputs-file cdk-outputs.json -a "python app.py"
