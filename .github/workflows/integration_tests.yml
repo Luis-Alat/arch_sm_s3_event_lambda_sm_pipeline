@@ -1,0 +1,37 @@
+name: Run Integration Tests
+
+on:
+  workflow_run:
+    workflows: ["Deploy to AWS"]
+    types:
+      - completed
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  integration-tests:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Download CDK outputs from deploy workflow
+        uses: actions/download-artifact@v4
+        with:
+          name: cdk-outputs
+          path: cdk/
+
+      #- name: Install test dependencies
+      #  run: pip install -r integration_tests/requirements.txt
+
+      - name: Run integration tests
+        run: python test/integration/test_api.py --config cdk/cdk-outputs.json
