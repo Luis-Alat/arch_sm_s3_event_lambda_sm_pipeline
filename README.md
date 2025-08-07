@@ -1,5 +1,7 @@
 ## 📁 Project Structure
 
+![alt text](other/img/image.png)
+
 ```bash
 
 .
