@@ -49,14 +49,13 @@ class CdkLambdaStack(Stack):
 
         CfnOutput(
             self,
-            self.lambda_call_end.function_name,
+            "CallEndpoint",
             value=self.lambda_call_end.function_name,
-
         )
 
         CfnOutput(
             self,
-            self.lambda_create_end.function_name,
+            "SeverlessDeploySagemakerPipeline",
             value=self.lambda_create_end.function_name
         )
 
