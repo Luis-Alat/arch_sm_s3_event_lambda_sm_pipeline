@@ -19,6 +19,6 @@ class CdkApiStack(Stack):
 
         CfnOutput(
             self,
-            "ApiGetPrediction",
+            "ApiGetPredictionUrl",
             value=api.url,
         )
