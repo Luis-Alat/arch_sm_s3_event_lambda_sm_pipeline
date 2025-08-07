@@ -3,12 +3,11 @@ name: Run Integration Tests
 on:
   workflow_run:
     workflows: ["Deploy to AWS"]
-    types:
-      - completed
-  pull_request:
     branches:
       - main
       - develop
+    types:
+      - completed
 
 jobs:
   integration-tests:
