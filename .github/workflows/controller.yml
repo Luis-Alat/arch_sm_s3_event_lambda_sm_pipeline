@@ -14,4 +14,4 @@ jobs:
   call-tests:
     name: Run Integration Tests
     needs: call-deploy
-    uses: ./.github/workflows/tests.yml
+    uses: ./.github/workflows/integration_tests.yml
