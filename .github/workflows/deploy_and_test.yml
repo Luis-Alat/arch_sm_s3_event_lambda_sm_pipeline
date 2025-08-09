@@ -61,8 +61,8 @@ jobs:
           name: cdk-outputs
           path: cdk/
 
-      #- name: Install test dependencies
-      #  run: pip install -r integration_tests/requirements.txt
+      - name: Install integration test dependencies
+        run: pip install -r test/integration/requirements.txt
 
       - name: Run integration tests
         run: python test/integration/test_api.py --config cdk/cdk-outputs.json
