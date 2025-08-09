@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  deploy:
+  Deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -43,7 +43,7 @@ jobs:
           name: cdk-outputs
           path: cdk/cdk-outputs.json
 
-  integration-tests:
+  Integration-tests:
     needs: deploy
     runs-on: ubuntu-latest
     steps:
