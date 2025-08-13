@@ -8,7 +8,7 @@ from event.event_bridge_stack import CdkEventStack
 app = cdk.App()
 
 lambda_stack = CdkLambdaStack(app, "LambdaStack")
-api_stack = CdkApiStack(app, "ApiStack", lambda_function=lambda_stack.lambda_create_end)
+api_stack = CdkApiStack(app, "ApiStack", lambda_function=lambda_stack.lambda_call_end)
 sm_pipe_stack = CdkSagemakerPipelinesStack(app, "SagemakerPipelineStack")
 event_rule = CdkEventStack(app, "EventBridgeRuleStack")
 
