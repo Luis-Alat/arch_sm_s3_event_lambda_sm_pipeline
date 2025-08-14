@@ -3,7 +3,8 @@ from aws_cdk import (
     aws_lambda as _lambda,
     aws_apigateway as apigw,
     aws_iam as iam,
-    CfnOutput
+    CfnOutput,
+    Duration
 )
 from constructs import Construct
 
@@ -34,7 +35,8 @@ class CdkLambdaStack(Stack):
             handler="CallEndpoint.lambda_handler",
             code=_lambda.Code.from_asset("lambdas/call_endpoint"),
             role=invocation_lambda_role,
-            function_name="CallEndpoint"
+            function_name="CallEndpoint",
+            timeout=Duration.seconds(10)
         )
 
         self.lambda_create_end = _lambda.Function(
@@ -49,13 +51,13 @@ class CdkLambdaStack(Stack):
 
         CfnOutput(
             self,
-            "CallEndpoint",
+            "EndpointLambdaFuncName",
             value=self.lambda_call_end.function_name,
         )
 
         CfnOutput(
             self,
-            "SeverlessDeploySagemakerPipeline",
+            "DeployLambdaFuncName",
             value=self.lambda_create_end.function_name
         )
 
