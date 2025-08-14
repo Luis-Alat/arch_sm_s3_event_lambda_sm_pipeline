@@ -28,5 +28,5 @@ class CdkApiStack(Stack):
         CfnOutput(
             self,
             "ApiGetPredictionResourcePredict",
-            value=predict_resource.resource_name
+            value=predict_resource.path.replace("/", "")
         )
