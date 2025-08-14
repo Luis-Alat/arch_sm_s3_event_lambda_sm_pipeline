@@ -1,9 +1,14 @@
+# AWS ML Model Deployment Architecture
+
+This is a simple AWS architecture for building, training, and deploying a machine learning model. It is divided into two main parts: a CI pipeline for model building and a CD pipeline for deployment.
+
+![alt text](other/img/Architecture.png)
+
 ## 📁 Project Structure
 
-![alt text](other/img/image.png)
+Some folders may not be present in the repository, either due to size limits, restrictions, etc.
 
 ```bash
-
 .
 ├── cdk
 │   ├── api
