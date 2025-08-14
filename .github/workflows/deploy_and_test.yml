@@ -65,4 +65,4 @@ jobs:
         run: pip install -r test/integration/requirements.txt
 
       - name: Run integration tests
-        run: python test/integration/test_api.py --config cdk/cdk-outputs.json
+        run: pytest test/integration/test_api_url.py -v --config cdk/cdk-outputs.json
