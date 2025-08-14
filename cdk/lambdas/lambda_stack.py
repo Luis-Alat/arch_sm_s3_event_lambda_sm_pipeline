@@ -36,7 +36,7 @@ class CdkLambdaStack(Stack):
             code=_lambda.Code.from_asset("lambdas/call_endpoint"),
             role=invocation_lambda_role,
             function_name="CallEndpoint",
-            timeout=Duration.seconds(6)
+            timeout=Duration.seconds(10)
         )
 
         self.lambda_create_end = _lambda.Function(
