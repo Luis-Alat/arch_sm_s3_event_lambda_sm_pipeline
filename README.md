@@ -11,8 +11,24 @@
 │   ├── lambdas
 │   │   ├── call_endpoint
 │   │   └── severless_deploy_endpoint
-│   └── pipeline
-│       └── sagemaker
+│   ├── pipeline
+│   │   └── sagemaker
+│   └── roles
+│       ├── CallEndpoint
+│       │   ├── attachedPolicies
+│       │   └── inlinePolicies
+│       ├── EventBridge_Invoke_SageMaker_Pipeline
+│       │   ├── attachedPolicies
+│       │   └── inlinePolicies
+│       ├── ModelArtefacts
+│       │   ├── attachedPolicies
+│       │   └── inlinePolicies
+│       ├── sagemakerS3
+│       │   ├── attachedPolicies
+│       │   └── inlinePolicies
+│       └── TriggerS3UpdateTrainData
+│           ├── attachedPolicies
+│           └── inlinePolicies
 ├── experiments
 │   ├── data
 │   │   ├── processed
@@ -20,7 +36,12 @@
 │   ├── models
 │   └── notebooks
 │       └── tmp
-└── pipeline
-    └── steps
+├── other
+│   └── img
+├── pipeline
+│   └── steps
+└── test
+    ├── integration
+    └── unit
 
 ```
