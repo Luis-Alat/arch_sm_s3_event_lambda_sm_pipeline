@@ -1,0 +1,68 @@
+name: Deploy to AWS and integration tests
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r cdk/requirements.txt
+          npm install -g aws-cdk
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Deploy CDK stacks
+        working-directory: cdk
+        run: |
+          cdk synth -a "python app.py"
+          cdk deploy --all --require-approval never --outputs-file cdk-outputs.json -a "python app.py"
+
+      - name: Upload CDK outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: cdk-outputs
+          path: cdk/cdk-outputs.json
+
+  Integration-tests:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Download CDK outputs from deploy job
+        uses: actions/download-artifact@v4
+        with:
+          name: cdk-outputs
+          path: cdk/
+
+      - name: Install integration test dependencies
+        run: pip install -r test/integration/requirements.txt
+
+      - name: Run integration tests
+        run: pytest test/integration/test_api_url.py -v --config cdk/cdk-outputs.json

@@ -1,6 +1,9 @@
 .ssh
 .ssh.pub
+.env
 
-pendientes
 
-data/
+**/data/
+experiments/models/*
+cdk/roles/
+get_policies.sh
