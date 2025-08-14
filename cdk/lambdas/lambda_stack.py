@@ -3,7 +3,8 @@ from aws_cdk import (
     aws_lambda as _lambda,
     aws_apigateway as apigw,
     aws_iam as iam,
-    CfnOutput
+    CfnOutput,
+    Duration
 )
 from constructs import Construct
 
@@ -35,7 +36,7 @@ class CdkLambdaStack(Stack):
             code=_lambda.Code.from_asset("lambdas/call_endpoint"),
             role=invocation_lambda_role,
             function_name="CallEndpoint",
-            timeout=6
+            timeout=Duration.seconds(6)
         )
 
         self.lambda_create_end = _lambda.Function(
