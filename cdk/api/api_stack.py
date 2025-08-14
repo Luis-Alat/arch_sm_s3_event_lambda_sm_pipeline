@@ -12,7 +12,9 @@ class CdkApiStack(Stack):
             "RestApiGetPrediction",
             rest_api_name="GetPrediction",
         )
-        api.root.add_resource("predict").add_method(
+
+        predict_resource = api.root.add_resource("predict")
+        predict_resource.add_method(
             "POST",
             aws_apigateway.LambdaIntegration(lambda_function)
         )
@@ -21,4 +23,10 @@ class CdkApiStack(Stack):
             self,
             "ApiGetPredictionUrl",
             value=api.url,
+        )
+
+        CfnOutput(
+            self,
+            "ApiGetPredictionResourcePredict",
+            value=predict_resource.resource_name
         )

@@ -17,7 +17,11 @@ def cdk_outputs(pytestconfig):
 
 @pytest.fixture(scope="session")
 def api_url(cdk_outputs):
-    return cdk_outputs["ApiStack"]["ApiGetPredictionUrl"]
+
+    base_url = cdk_outputs["ApiStack"]["ApiGetPredictionUrl"]
+    resource = cdk_outputs["ApiStack"]["ApiGetPredictionResourcePredict"]
+
+    return f"{base_url}{resource}"
 
 
 @pytest.fixture(scope="session")
